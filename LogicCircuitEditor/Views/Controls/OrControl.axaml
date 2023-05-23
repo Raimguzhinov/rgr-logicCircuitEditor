@@ -1,0 +1,30 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:converters="clr-namespace:LogicCircuitEditor.Converters"
+        xmlns:controls="using:LogicCircuitEditor.Views.Control">
+  <Design.PreviewWith>
+    <controls:OrControl />
+  </Design.PreviewWith>
+
+	<Styles.Resources>
+		<converters:FocusColorConverter x:Key="focusColor"/>
+	</Styles.Resources>
+
+  <Style Selector="controls|OrControl">
+    <Setter Property="Template">
+      <ControlTemplate>
+		  <Canvas Name="OrCanvas" Height="72" Width="83">
+			  <Path Data="M 10,1 c 0,0 40,0 70,35 c 0,0 -30,35 -70,35 c 0,0 20,-35 0,-70" Stroke="{TemplateBinding FocusOnElement, Converter={StaticResource focusColor}}" StrokeThickness="2" Fill="DeepSkyBlue"/>
+			  <Ellipse Name="Input1" Fill="DarkOrange" Width="10" Height="10" Canvas.Top="15"/>
+			  <Ellipse Name="Input2" Fill="DarkOrange" Width="10" Height="10" Canvas.Bottom="16"/>
+			  <Ellipse Name="Output" Fill="Magenta" Width="10" Height="10" Canvas.Top="30" Canvas.Left="73"/>
+			  <Line StartPoint="10,20" EndPoint="18,20" StrokeThickness="3" Stroke="White"/>
+			  <Line StartPoint="10,51" EndPoint="18,51" StrokeThickness="3" Stroke="White"/>
+			  <Line/>
+			  <TextBlock Text="OR" Canvas.Left="32" Canvas.Top="27" FontSize="14" FontWeight="Bold">
+			  </TextBlock>
+		  </Canvas>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>

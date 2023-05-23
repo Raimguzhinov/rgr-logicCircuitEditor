@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:converters="clr-namespace:LogicCircuitEditor.Converters"
+        xmlns:controls="using:LogicCircuitEditor.Views.Control">
+	<Design.PreviewWith>
+		<controls:OutputControl />
+	</Design.PreviewWith>
+
+	<Styles.Resources>
+		<converters:FocusColorConverter x:Key="focusColor"/>
+		<converters:SignalToColorConverter x:Key="signalColor"/>
+	</Styles.Resources>
+
+	<Style Selector="controls|OutputControl">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Canvas Name="InputCanvas" Width="55" Height="50">
+					<Ellipse Width="50" Height="50" Stroke="{TemplateBinding FocusOnElement, Converter={StaticResource focusColor}}" StrokeThickness="2" Canvas.Left="5" Fill="White"/>
+					<Ellipse Name="Signal" Width="30" Height="30" Canvas.Left="15" Canvas.Top="10" Fill="{TemplateBinding Signal, Converter={StaticResource signalColor}}"/>
+					<Ellipse Name="Input" Fill="DarkOrange" Width="10" Height="10" Canvas.Top="20"/>
+				</Canvas>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>

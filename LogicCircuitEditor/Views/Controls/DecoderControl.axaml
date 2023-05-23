@@ -1,0 +1,31 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:converters="clr-namespace:LogicCircuitEditor.Converters"
+        xmlns:controls="using:LogicCircuitEditor.Views.Control">
+	<Design.PreviewWith>
+		<controls:DecoderControl FocusOnElement="True"/>
+	</Design.PreviewWith>
+
+	<Styles.Resources>
+		<converters:FocusColorConverter x:Key="focusColor"/>
+	</Styles.Resources>
+
+	<Style Selector="controls|DecoderControl">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Canvas Name="DecodeCanvas" Height="102" Width="89">
+					<Path Data="M 5,1 l 80,0 l 0,100 l -80,0 l 0,-100" Stroke="{TemplateBinding FocusOnElement, Converter={StaticResource focusColor}}" StrokeThickness="2" Fill="DeepSkyBlue"/>
+					<Ellipse Name="Input1" Fill="DarkOrange" Width="10" Height="10" Canvas.Top="30"/>
+					<Ellipse Name="Input2" Fill="DarkOrange" Width="10" Height="10" Canvas.Bottom="30"/>
+					<Ellipse Name="Output1" Fill="Magenta" Width="10" Height="10" Canvas.Top="30" Canvas.Left="79"/>
+					<Ellipse Name="Output2" Fill="Magenta" Width="10" Height="10" Canvas.Bottom="30" Canvas.Left="79"/>
+					<TextBlock Text="Decoder" Canvas.Top="5" Canvas.Left="16" FontSize="14" FontWeight="Bold"/>
+					<TextBlock Text="Sig" Canvas.Top="27" Canvas.Left="13" FontSize="14" FontWeight="Bold"/>
+					<TextBlock Text="In" Canvas.Top="58" Canvas.Left="13" FontSize="14" FontWeight="Bold"/>
+					<TextBlock Text="O1" Canvas.Top="27" Canvas.Left="58" FontSize="14" FontWeight="Bold"/>
+					<TextBlock Text="O2" Canvas.Top="58" Canvas.Left="58" FontSize="14" FontWeight="Bold"/>
+				</Canvas>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>

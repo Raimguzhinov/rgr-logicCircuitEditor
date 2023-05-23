@@ -1,0 +1,28 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:LogicCircuitEditor.Views.Control">
+	<Design.PreviewWith>
+		<controls:EditableTextBlock CustomText="Text" FontSizeText="14" FontWeightText="Bold"/>
+	</Design.PreviewWith>
+
+	<Style Selector="controls|EditableTextBlock">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<TextBlock Background="Transparent"
+							   Classes="TextClass"
+							   Text="{Binding #customTextBox.Text}"
+							   FontSize="{TemplateBinding FontSizeText}"
+							   FontWeight="{TemplateBinding FontWeightText}"/>
+					<TextBox IsVisible="False"
+							 MaxLength="50"
+							 Background="Transparent"
+							 Name="customTextBox"
+							 Text="{TemplateBinding CustomText, Mode=TwoWay}"
+							 FontSize="{TemplateBinding FontSizeText}"
+							 FontWeight="{TemplateBinding FontWeightText}"/>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>
