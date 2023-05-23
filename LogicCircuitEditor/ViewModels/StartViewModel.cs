@@ -8,49 +8,51 @@ namespace LogicCircuitEditor.ViewModels
 {
     public class StartViewModel : ViewModelBase
     {
-        private int index;
-        private ObservableCollection<ProjectFile> projects = null!;
+        private int _index;
+        private ObservableCollection<ProjectFile> _projects = null!;
 
         public StartViewModel()
         {
             Projects = new ObservableCollection<ProjectFile>();
             Index = -1;
-            Serialize();
+            LoadProjects();
         }
 
-        private void Serialize()
+        private void LoadProjects()
         {
             try
             {
+                // Чтение сериализованных данных из файла
+                string serialized;
+                using (StreamReader reader = new StreamReader("../../../Assets/projects.json"))
+                {
+                    serialized = reader.ReadToEnd();
+                }
+
+                // Десериализация списка проектов
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All,
                     Formatting = Newtonsoft.Json.Formatting.Indented
                 };
-                string Serialized;
-                using (StreamReader reader =
-                       new StreamReader("../../../Assets/projects.json"))
-                {
-                    Serialized = reader.ReadToEnd();
-                }
-                Projects =
-                    JsonConvert.DeserializeObject<ObservableCollection<ProjectFile>>(
-                        Serialized, settings);
+                Projects = JsonConvert.DeserializeObject<ObservableCollection<ProjectFile>>(serialized, settings);
             }
             catch
             {
+                // Обработка ошибки чтения или десериализации
             }
         }
 
         public ObservableCollection<ProjectFile> Projects
         {
-            get => projects;
-            set => this.RaiseAndSetIfChanged(ref projects, value);
+            get => _projects;
+            set => this.RaiseAndSetIfChanged(ref _projects, value);
         }
+
         public int Index
         {
-            get => index;
-            set => this.RaiseAndSetIfChanged(ref index, value);
+            get => _index;
+            set => this.RaiseAndSetIfChanged(ref _index, value);
         }
     }
 }

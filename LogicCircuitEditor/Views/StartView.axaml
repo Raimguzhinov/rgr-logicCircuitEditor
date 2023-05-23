@@ -6,32 +6,43 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LogicCircuitEditor.Views.StartView">
 
-    <UserControl.Styles>
-        <Style Selector="Button">
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="CornerRadius" Value="0"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="20"/>
-            <Setter Property="CornerRadius" Value="15"/>
-        </Style>
-    </UserControl.Styles>
+	<UserControl.Styles>
+		<Style Selector="Button">
+			<Setter Property="VerticalAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="Margin" Value="20"/>
+			<Setter Property="CornerRadius" Value="15"/>
+		</Style>
+	</UserControl.Styles>
 
-
-    <Grid ColumnDefinitions="*, *">
-        <Grid Grid.Column="0" RowDefinitions="*, *, *" Focusable="True">
-            <Button Grid.Row="0" Content="Создать новый проект" Click="CreateProjectButtonClick"/>
-            <Button Grid.Row="1" Content="Открыть проект" Click="OpenProjectButtonClick"/>
-            <Button Grid.Row="2" Content="Выход" Click="CloseWindowButtonClick"/>
-        </Grid>
-        <ListBox Grid.Column="1" Items="{Binding Projects}" SelectedIndex="{Binding Index}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="24"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+	<Grid RowDefinitions="0.2*, *, 0.2*">
+		<Grid Grid.Row="0" ColumnDefinitions = "0.6*, *, *" Focusable="True">
+			<Grid Grid.Column="0" ColumnDefinitions="0.1*, 0.2*, 0.3*, 0.1*">
+				<controls:OutputControl Grid.Column="1" Signal="True"/>
+				<controls:InputControl Grid.Column="2" Signal="False"/>
+			</Grid>
+			<Button Grid.Column="1" Content="открыть проект" Click="OpenProjectButtonClick"/>
+			<Button Grid.Column="2" Content="создать новый проект" Click="CreateProjectButtonClick"/>
+		</Grid>
+		<Grid Grid.Row="1" ColumnDefinitions = "0.3*, *">
+			<Grid Grid.Column="0" RowDefinitions="*, *">
+				<AccessText Grid.Row="0" Text="мои проекты:" FontSize="20" HorizontalAlignment="Center" Margin="30"></AccessText>
+				<AccessText Grid.Row="0" Text="мой вариант:" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center"></AccessText>
+				<controls:DecoderControl Grid.Row="1"/>
+			</Grid>
+			<ListBox Grid.Column="1" Grid.Row="0" Items="{Binding Projects}" SelectedIndex="{Binding Index}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}" FontSize="24"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Grid>
+		<Grid Grid.Row="2" Focusable="True">
+			<Button Content="выход" Click="CloseWindowButtonClick"/>
+		</Grid>
+	</Grid>
 </UserControl>
