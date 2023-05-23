@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicCircuitEditor", "LogicCircuitEditor\LogicCircuitEditor.csproj", "{E6ADF648-27FB-4BFB-8F5D-41EC3887B852}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestLogicalElements", "UnitTestLogicalElements\UnitTestLogicalElements.csproj", "{4663CE78-F555-4F56-B742-8F4A77D4A354}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{E6ADF648-27FB-4BFB-8F5D-41EC3887B852}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6ADF648-27FB-4BFB-8F5D-41EC3887B852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6ADF648-27FB-4BFB-8F5D-41EC3887B852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4663CE78-F555-4F56-B742-8F4A77D4A354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4663CE78-F555-4F56-B742-8F4A77D4A354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4663CE78-F555-4F56-B742-8F4A77D4A354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4663CE78-F555-4F56-B742-8F4A77D4A354}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
