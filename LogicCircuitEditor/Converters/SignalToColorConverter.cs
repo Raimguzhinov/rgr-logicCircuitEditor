@@ -12,7 +12,7 @@ namespace LogicCircuitEditor.Converters
         {
             if (value is bool signal && targetType.IsAssignableTo(typeof(IBrush)))
             {
-                return signal ? new SolidColorBrush(Colors.LightGreen) : new SolidColorBrush(Colors.LightGray);
+                return signal ? new SolidColorBrush(Colors.Tomato) : new SolidColorBrush(Colors.LightGray);
             }
             return new BindingNotification(new InvalidCastException(), BindingErrorType.Error);
         }

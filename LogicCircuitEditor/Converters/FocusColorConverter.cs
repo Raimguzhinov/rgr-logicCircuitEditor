@@ -1,4 +1,4 @@
-using Avalonia.Data;
+﻿using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using System;
@@ -12,7 +12,7 @@ namespace LogicCircuitEditor.Converters
         {
             if (value is bool focus && targetType.IsAssignableTo(typeof(IBrush)))
             {
-                return focus ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Green);
+                return focus ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Black);
             }
             return new BindingNotification(new InvalidCastException(), BindingErrorType.Error);
         }
