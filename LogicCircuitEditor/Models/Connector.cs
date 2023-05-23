@@ -6,72 +6,72 @@ namespace LogicCircuitEditor.Models
 {
     public class Connector : Element, IDisposable
     {
-        private Point startPoint;
-        private Point endPoint;
-        private LogicalElement firstElement = null!;
-        private LogicalElement secondElement = null!;
-        private bool connectToFirstInput;
-        private bool connectFromFirstInput;
-        private bool reverseConnection;
+        private Point _startPoint;
+        private Point _endPoint;
+        private LogicalElement _firstElement = null!;
+        private LogicalElement _secondElement = null!;
+        private bool _connectToFirstInput;
+        private bool _connectFromFirstInput;
+        private bool _reverseConnection;
 
         public Connector()
         {
-            reverseConnection = false;
-            connectFromFirstInput = true;
+            _reverseConnection = false;
+            _connectFromFirstInput = true;
         }
 
         public Point StartPoint
         {
-            get => startPoint;
-            set => SetAndRaise(ref startPoint, value);
+            get => _startPoint;
+            set => SetAndRaise(ref _startPoint, value);
         }
 
         public Point EndPoint
         {
-            get => endPoint;
-            set => SetAndRaise(ref endPoint, value);
+            get => _endPoint;
+            set => SetAndRaise(ref _endPoint, value);
         }
         public LogicalElement FirstElement
         {
-            get => firstElement;
+            get => _firstElement;
             set
             {
-                firstElement = value;
-                if (firstElement != null)
+                _firstElement = value;
+                if (_firstElement != null)
                 {
-                    firstElement.ChangeStartPoint += OnFirstElementPositionChanged;
+                    _firstElement.ChangeStartPoint += OnFirstElementPositionChanged;
                 }
             }
         }
 
         public LogicalElement SecondElement
         {
-            get => secondElement;
+            get => _secondElement;
             set
             {
-                secondElement = value;
-                if (secondElement != null)
+                _secondElement = value;
+                if (_secondElement != null)
                 {
-                    secondElement.ChangeStartPoint += OnSecondElementPositionChanged;
+                    _secondElement.ChangeStartPoint += OnSecondElementPositionChanged;
                 }
             }
         }
 
         public bool ConnectToFirstInput
         {
-            get => connectToFirstInput;
-            set => SetAndRaise(ref connectToFirstInput, value);
+            get => _connectToFirstInput;
+            set => SetAndRaise(ref _connectToFirstInput, value);
         }
         public bool ConnectFromFirstInput
         {
-            get => connectFromFirstInput;
-            set => SetAndRaise(ref connectFromFirstInput, value);
+            get => _connectFromFirstInput;
+            set => SetAndRaise(ref _connectFromFirstInput, value);
         }
 
         public bool ReverseConnection
         {
-            get => reverseConnection;
-            set => SetAndRaise(ref reverseConnection, value);
+            get => _reverseConnection;
+            set => SetAndRaise(ref _reverseConnection, value);
         }
 
         public void Dispose()
@@ -92,7 +92,7 @@ namespace LogicCircuitEditor.Models
                     not.IsConnected = false;
                     not.Input = false;
                 }
-                if (secondElement is TwoInputsGate two)
+                if (_secondElement is TwoInputsGate two)
                 {
                     if (ConnectToFirstInput)
                     {
@@ -112,7 +112,7 @@ namespace LogicCircuitEditor.Models
         private void OnFirstElementPositionChanged(object? sender,
                                                    ChangeStartPointEventArgs e)
         {
-            if (reverseConnection)
+            if (_reverseConnection)
                 EndPoint += e.NewStartPoint - e.OldStartPoint;
             else
                 StartPoint += e.NewStartPoint - e.OldStartPoint;
@@ -120,7 +120,7 @@ namespace LogicCircuitEditor.Models
         private void OnSecondElementPositionChanged(object? sender,
                                                     ChangeStartPointEventArgs e)
         {
-            if (reverseConnection)
+            if (_reverseConnection)
                 StartPoint += e.NewStartPoint - e.OldStartPoint;
             else
                 EndPoint += e.NewStartPoint - e.OldStartPoint;

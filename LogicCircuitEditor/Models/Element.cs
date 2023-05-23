@@ -4,16 +4,16 @@ namespace LogicCircuitEditor.Models
 {
     public abstract class Element : AbstractNotifyPropertyChanged
     {
-        private static uint id_generator = 0;
-        protected uint id;
+        private static uint _idGenerator = 0;
+        protected uint Id;
         protected bool focusOnElement;
         public Element()
         {
-            id = id_generator++;
+            Id = _idGenerator++;
             FocusOnElement = false;
         }
 
-        public uint ID { get => id; set => SetAndRaise(ref id, value); }
+        public uint ID { get => Id; set => SetAndRaise(ref Id, value); }
         public bool FocusOnElement
         {
             get => focusOnElement;

@@ -5,8 +5,8 @@ namespace LogicCircuitEditor.Models
 {
     public class Scheme : AbstractNotifyPropertyChanged
     {
-        private string name = "";
-        private ObservableCollection<Element> elements = null!;
+        private string _name = "";
+        private ObservableCollection<Element> _elements = null!;
         public Scheme()
         {
             Name = "Scheme";
@@ -14,13 +14,13 @@ namespace LogicCircuitEditor.Models
         }
         public string Name
         {
-            get => name;
-            set => SetAndRaise(ref name, value);
+            get => _name;
+            set => SetAndRaise(ref _name, value);
         }
         public ObservableCollection<Element> Elements
         {
-            get => elements;
-            set => SetAndRaise(ref elements, value);
+            get => _elements;
+            set => SetAndRaise(ref _elements, value);
         }
     }
 }
