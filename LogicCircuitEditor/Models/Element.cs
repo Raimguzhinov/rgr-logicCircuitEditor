@@ -1,4 +1,4 @@
-using DynamicData.Binding;
+﻿using DynamicData.Binding;
 
 namespace LogicCircuitEditor.Models
 {

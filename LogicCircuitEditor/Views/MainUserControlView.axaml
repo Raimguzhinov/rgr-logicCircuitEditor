@@ -1,0 +1,137 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:controls="clr-namespace:LogicCircuitEditor.Views.Control"
+			 xmlns:vm="clr-namespace:LogicCircuitEditor.ViewModels"
+		     xmlns:models="clr-namespace:LogicCircuitEditor.Models"
+		     xmlns:logical="clr-namespace:LogicCircuitEditor.Models.LogicalElements"
+		     xmlns:converters="clr-namespace:LogicCircuitEditor.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="LogicCircuitEditor.Views.MainUserControlView">
+
+	<Design.DataContext>
+		<vm:MainUserControlViewModel/>
+	</Design.DataContext>
+
+	<UserControl.Resources>
+		<converters:FocusColorConverter x:Key="colorFocus"/>
+	</UserControl.Resources>
+
+
+	<Grid ColumnDefinitions="200, *" Focusable="True">
+		<Grid RowDefinitions="Auto, *, 30, 30" Grid.Column="0">
+			<Border Grid.Row="0" BorderThickness="1" BorderBrush="Black">
+				<Menu Grid.Column="0" Grid.Row="0">
+					<MenuItem Name="Menu" Header="Меню">
+						<MenuItem Header="Создать" Command="{Binding CreateProject}"/>
+						<MenuItem Header="Открыть" Click="OpenFileDialogMenuYamlClick"/>
+						<MenuItem Header="Сохранить" Click="SaveFileDialogMenuYamlClick"/>
+						<MenuItem Header="Выйти" Click="CloseWindowButtonClick"/>
+					</MenuItem>
+					<MenuItem Name="Elements" Header="Элементы">
+						<RadioButton IsChecked="{Binding IsInput}" GroupName="Group">
+							<controls:InputControl Signal="True"/>
+						</RadioButton>
+						<RadioButton IsChecked="{Binding IsOutput}" GroupName="Group">
+							<controls:OutputControl Signal="True"/>
+						</RadioButton>
+						<RadioButton IsChecked="{Binding IsNotGate}" GroupName="Group">
+							<controls:NotControl/>
+						</RadioButton>
+						<RadioButton IsChecked="{Binding IsAndGate}" GroupName="Group">
+							<controls:AndControl/>
+						</RadioButton>
+						<RadioButton IsChecked="{Binding IsOrGate}" GroupName="Group">
+							<controls:OrControl/>
+						</RadioButton>
+						<RadioButton IsChecked="{Binding IsXorGate}" GroupName="Group">
+							<controls:XorControl/>
+						</RadioButton>
+						<RadioButton IsChecked="{Binding IsDecoderGate}" GroupName="Group">
+							<controls:DecoderControl/>
+						</RadioButton>
+					</MenuItem>
+				</Menu>
+			</Border>
+			<Border Grid.Row="1" BorderThickness="1" BorderBrush="Black">
+				<Grid RowDefinitions="Auto, *">
+					<controls:EditableTextBlock Grid.Row="0" Focusable="True" CustomText="{Binding Project.Name}" HorizontalAlignment="Center" FontSizeText="18" FontWeightText="Bold"/>
+					<ListBox Grid.Row="1" Items="{Binding Project.Schemes}" SelectedIndex="{Binding Index}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<controls:EditableTextBlock Focusable="True" CustomText="{Binding Name}" FontSizeText="14" FontWeightText="Normal"/>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</Grid>
+			</Border>
+			<Button IsVisible="False" Command="{Binding DeleteFocusedElement}" HotKey="Back"/>
+			<Button Grid.Row="2" Content="Добаваить схему" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding AddScheme}"/>
+			<Button Grid.Row="3" Content="Удалить схему" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding DeleteScheme}"/>
+		</Grid>
+		<Border Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+			<ItemsControl PointerPressed="PointerPressedOnMainCanvas" DoubleTapped="ChangeSignal" Focusable="True" Grid.Row="1" Grid.Column="1" Items="{Binding Elements}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Canvas Name="mainCanvas" Background="SlateGray"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.DataTemplates>
+					<DataTemplate DataType="{x:Type logical:InputElement}">
+						<controls:InputControl FocusOnElement="{Binding FocusOnElement}" Signal="{Binding SignalOut}" Focusable="True">
+							<controls:InputControl.RenderTransform>
+								<TranslateTransform X="{Binding StartPoint.X}" Y="{Binding StartPoint.Y}"/>
+							</controls:InputControl.RenderTransform>
+						</controls:InputControl>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type logical:OutputElement}">
+						<controls:OutputControl FocusOnElement="{Binding FocusOnElement}" Signal="{Binding SignalIn}" Focusable="True">
+							<controls:OutputControl.RenderTransform>
+								<TranslateTransform X="{Binding StartPoint.X}" Y="{Binding StartPoint.Y}"/>
+							</controls:OutputControl.RenderTransform>
+						</controls:OutputControl>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type logical:AndGate}">
+						<controls:AndControl FocusOnElement="{Binding FocusOnElement}" Focusable="True">
+							<controls:AndControl.RenderTransform>
+								<TranslateTransform X="{Binding StartPoint.X}" Y="{Binding StartPoint.Y}"/>
+							</controls:AndControl.RenderTransform>
+						</controls:AndControl>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type logical:OrGate}">
+						<controls:OrControl FocusOnElement="{Binding FocusOnElement}" Focusable="True">
+							<controls:OrControl.RenderTransform>
+								<TranslateTransform X="{Binding StartPoint.X}" Y="{Binding StartPoint.Y}"/>
+							</controls:OrControl.RenderTransform>
+						</controls:OrControl>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type logical:XorGate}">
+						<controls:XorControl FocusOnElement="{Binding FocusOnElement}" Focusable="True">
+							<controls:XorControl.RenderTransform>
+								<TranslateTransform X="{Binding StartPoint.X}" Y="{Binding StartPoint.Y}"/>
+							</controls:XorControl.RenderTransform>
+						</controls:XorControl>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type logical:NotGate}">
+						<controls:NotControl FocusOnElement="{Binding FocusOnElement}" Focusable="True">
+							<controls:NotControl.RenderTransform>
+								<TranslateTransform X="{Binding StartPoint.X}" Y="{Binding StartPoint.Y}"/>
+							</controls:NotControl.RenderTransform>
+						</controls:NotControl>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type logical:DecoderGate}">
+						<controls:DecoderControl FocusOnElement="{Binding FocusOnElement}" Focusable="True">
+							<controls:DecoderControl.RenderTransform>
+								<TranslateTransform X="{Binding StartPoint.X}" Y="{Binding StartPoint.Y}"/>
+							</controls:DecoderControl.RenderTransform>
+						</controls:DecoderControl>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type models:Connector}">
+						<Line StartPoint="{Binding StartPoint}" EndPoint="{Binding EndPoint}" StrokeThickness="2" Stroke="{Binding FocusOnElement, Converter={StaticResource colorFocus}}" Focusable="True"/>
+					</DataTemplate>
+				</ItemsControl.DataTemplates>
+			</ItemsControl>
+		</Border>
+	</Grid>
+</UserControl>
